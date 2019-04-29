@@ -88,7 +88,49 @@
 
 @end
 
-@implementation convert
+@implementation CC_Convert
+
++ (NSString *)encodeUrlParameter:(NSString *)originalPara{
+    CFStringRef encodeParaCf = CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)originalPara, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);
+    NSString *encodePara = (__bridge NSString *)(encodeParaCf);
+    CFRelease(encodeParaCf);
+    return encodePara;
+}
+
++ (NSData *)strToData_utf8:(NSString *)str{
+    if (!str) {
+        return nil;
+    }
+    return [str dataUsingEncoding:NSUTF8StringEncoding];
+}
+
++ (NSData *)strToData_base64:(NSString *)str{
+    if (!str) {
+        return nil;
+    }
+    NSData *ciphertextdata = [[NSData alloc]initWithBase64EncodedString:str options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    return ciphertextdata;
+}
+
++ (NSString *)dataToStr_utf8:(NSData *)data{
+    if (!data) {
+        return nil;
+    }
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
++ (NSString *)dataToStr_base64:(NSData *)data{
+    if (!data) {
+        return nil;
+    }
+    return [data base64EncodedStringWithOptions:0];
+}
+
++ (NSData *)intToData:(int)i{
+    int j=ntohl(i);
+    NSData *data = [NSData dataWithBytes: &j length: sizeof(i)];
+    return data;
+}
 
 + (NSString *)convertToJSONData:(id)infoDict
 {

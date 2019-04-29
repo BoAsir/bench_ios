@@ -28,7 +28,10 @@
  *  完整的请求链接
  */
 @property(nonatomic,retain) NSString *requestStr;
-
+/**
+ *  完整的请求内容
+ */
+@property(nonatomic,retain) NSDictionary *requestDic;
 
 /**
  *  响应结果
@@ -59,6 +62,7 @@
  *  响应时间显示格式
  */
 @property(nonatomic,retain) NSString *responseDateFormatStr;
+
 /**
  *  响应的时间
  *  Thu, 19 Apr 2018 02:18:39 GMT
@@ -66,9 +70,20 @@
 @property(nonatomic,retain) NSDate *responseDate;
 
 /**
+ *  响应的本地时间
+ *
+ */
+@property(nonatomic,retain) NSDate *responseLocalDate;
+
+/**
  *  解析失败
  */
 @property(nonatomic,assign) int parseFail;
+
+/**
+ *  http头部加密标识
+ */
+@property(nonatomic,assign) BOOL headerEncrypt;
 
 - (void)parsingError:(NSError *)error;
 - (void)parsingResult:(NSString *)resultStr;

@@ -7,7 +7,6 @@
 //
 
 #import "CC_UIHelper.h"
-#import "CC_UIToolView.h"
 #import "CC_Share.h"
 
 @interface CC_UIHelper(){
@@ -31,6 +30,22 @@ static dispatch_once_t onceToken;
 - (void)initUIDemoWidth:(float)width andHeight:(float)height{
     _uiDemoWidth=width;
     _uiDemoHeight=height;
+    
+    _bigTitleFont=RF(24);
+    _bigTitleFontColor=COLOR_BLACK;
+    
+    _titleFont=RF(18);
+    _titleFontColor=ccRGBA(51, 51, 51, 1);
+    
+    _contentFont=RF(16);
+    _contentFontColor=ccRGBA(102, 102, 102, 1);
+    
+    _dateFont=RF(12);
+    _dateFontColor=ccRGBA(153, 153, 153, 1);
+    
+    _mainColor=ccRGBA(88, 149, 247, 1);
+    _subColor=ccRGBA(111, 111, 111, 1);
+    
 }
 
 - (float)getUIDemoWith{
@@ -77,12 +92,6 @@ static dispatch_once_t onceToken;
     return (int)[_modelsDic allKeys].count;
 }
 
-- (void)initToolV{
-    CC_UIToolView *tool=[[CC_UIToolView alloc]init];
-    UIWindow *window = [[[UIApplication sharedApplication] windows] lastObject];
-    [window addSubview:tool];
-}
-
 @end
 
 @implementation ccui
@@ -97,18 +106,24 @@ static dispatch_once_t onceToken;
     return [self getRelativeFont:nil fontSize:fontSize];
 }
 + (UIFont *)getRelativeFont:(NSString *)fontName fontSize:(float)fontSize{
-    if (fontSize<=10) {
-        fontSize=10*[self getW]/[[CC_UIHelper getInstance]getUIDemoWith];
+    float rate=[self getW]/[[CC_UIHelper getInstance]getUIDemoWith];
+    if (fontSize<=10||rate<1) {
+        fontSize=10*rate;
         return [UIFont systemFontOfSize:fontSize];
     }
-    fontSize=10+(fontSize-10)*([self getW]/[[CC_UIHelper getInstance]getUIDemoWith]);
+    fontSize=10+(fontSize-10)*rate;
     if (fontName) {
         return [UIFont fontWithName:fontName size:fontSize];
     }
     return [UIFont systemFontOfSize:fontSize];
 }
 + (UIFont *)getRelativeFont:(NSString *)fontName fontSize:(float)fontSize baseFontSize:(float)baseFontSize{
-    fontSize=baseFontSize+(fontSize-baseFontSize)*([self getW]/[[CC_UIHelper getInstance]getUIDemoWith]);
+    float rate=[self getW]/[[CC_UIHelper getInstance]getUIDemoWith];
+    if (fontSize<=10||rate<1) {
+        fontSize=10*rate;
+        return [UIFont fontWithName:fontName size:fontSize];
+    }
+    fontSize=baseFontSize+(fontSize-baseFontSize)*rate;
     if (fontName) {
         return [UIFont fontWithName:fontName size:fontSize];
     }

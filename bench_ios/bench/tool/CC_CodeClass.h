@@ -50,21 +50,53 @@
 
 @end
 
-@interface convert : NSObject
+@interface CC_Convert : NSObject
+
+/**
+ *  URL编码 转换!*'();:@&=+$,/?%#[]
+ */
++ (NSString *)encodeUrlParameter:(NSString *)originalPara;
+
+/**
+ *  string to data, utf8编码
+ */
++ (NSData *)strToData_utf8:(NSString *)str;
+
+/**
+ *  string to data, base64
+ */
++ (NSData *)strToData_base64:(NSString *)str;
+
+/**
+ *  data to string, utf8编码
+ */
++ (NSString *)dataToStr_utf8:(NSData *)data;
+
+/**
+ *  data to string, base64
+ */
++ (NSString *)dataToStr_base64:(NSData *)data;
+
+/**
+ *  int转data
+ */
++ (NSData *)intToData:(int)i;
 
 /**
  *  JSON转NSString
  */
 + (NSString *)convertToJSONData:(id)infoDict;
+
 /**
  *  NSString转NSDictionary(JSON)
  */
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
+
 /**
- *  服务端颜色的16进制NSString转成UIColor
+ *  颜色的16进制NSString转成UIColor
  */
 + (UIColor *)colorwithHexString:(NSString *)color;
 
-+ (NSString*)parseLabel:(NSString*)str start:(NSString *)startStr end:(NSString *)endStr includeStartEnd:(BOOL)includeStartEnd;
++ (NSString *)parseLabel:(NSString *)str start:(NSString *)startStr end:(NSString *)endStr includeStartEnd:(BOOL)includeStartEnd;
 
 @end

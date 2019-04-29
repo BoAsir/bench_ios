@@ -20,9 +20,10 @@
  @param service 请求的域名
  @param requestUrl 请求URL地址
  @param parameters 请求参数
+ @param  dic 请求结果
  @return 是否记录成功
  */
--(BOOL)insertRequestDataWithHHSService:(NSString *)service requestUrl:(NSString *)requestUrl parameters:(NSString *)parameters;
+-(BOOL)insertRequestDataWithHHSService:(NSString *)service requestUrl:(NSString *)requestUrl parameters:(NSString *)parameters resModelDic:(NSDictionary *)dic;
 
 /**
  记录的plist文件地址
@@ -41,5 +42,16 @@
 
 -(NSString *)totalRequestUrls;
 -(NSString *)getTotalStr;
+
+/**
+ 删除plist文件
+ */
+-(void)clearPlistWithcompletion:(void (^)(BOOL isSussecc ,NSError * error))completion;
+
+/**
+ 删除具体某条记录
+ */
+-(void)clearPlistAtIndex:(NSInteger)index Withcompletion:(void (^)(BOOL isSussecc ,NSError * error))completion;
+
 
 @end
