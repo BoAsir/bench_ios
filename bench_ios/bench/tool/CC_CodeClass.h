@@ -12,6 +12,11 @@
 @interface CC_Code : NSObject
 
 /**
+ *  获取根控制器
+ */
++ (UINavigationController *)getRootNav;
+
+/**
  *  获取当前控制器
  */
 + (UIViewController *)getCurrentVC;
@@ -51,6 +56,12 @@
 @end
 
 @interface CC_Convert : NSObject
+
+/**
+ *  度和弧度的转化
+ */
++ (float)huDuTodu:(float)du;
++ (float)duToHuDu:(float)huDu;
 
 /**
  *  URL编码 转换!*'();:@&=+$,/?%#[]

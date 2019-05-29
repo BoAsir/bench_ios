@@ -10,6 +10,29 @@
 
 @implementation CC_Code
 
++ (UINavigationController *)getRootNav{
+    // return (UINavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    /* keywindow会出现bug,参考:
+     https://stackoverflow.com/questions/21698482/diffrence-between-uiapplication-sharedapplication-delegate-window-and-u/42996156#42996156
+     http://www.jianshu.com/p/ae84cd31d8f0
+     */
+    
+    if ([[UIApplication sharedApplication].delegate.window.rootViewController isKindOfClass:[UINavigationController class]])
+    {
+        return (UINavigationController *)[UIApplication sharedApplication].delegate.window.rootViewController;
+    }
+    else if ([[UIApplication sharedApplication].delegate.window.rootViewController isKindOfClass:[UITabBarController class]])
+    {
+        UIViewController *selectVc = [((UITabBarController *)[UIApplication sharedApplication].delegate.window.rootViewController) selectedViewController];
+        if ([selectVc isKindOfClass:[UINavigationController class]])
+        {
+            return (UINavigationController *)selectVc;
+        }
+    }
+    
+    return nil;
+}
+
 + (UIViewController *)getCurrentVC
 {
     UIWindow * window = [[UIApplication sharedApplication] keyWindow];
@@ -89,6 +112,17 @@
 @end
 
 @implementation CC_Convert
+
++ (float)duToHuDu:(float)du{
+    if (du==0) {
+        return 0;
+    }
+    return M_PI/(180/du);
+}
+
++ (float)huDuTodu:(float)huDu{
+    return huDu*180/M_PI;
+}
 
 + (NSString *)encodeUrlParameter:(NSString *)originalPara{
     CFStringRef encodeParaCf = CFURLCreateStringByAddingPercentEscapes(NULL, (__bridge CFStringRef)originalPara, NULL, CFSTR("!*'();:@&=+$,/?%#[]"), kCFStringEncodingUTF8);

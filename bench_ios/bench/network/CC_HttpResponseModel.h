@@ -85,6 +85,16 @@
  */
 @property(nonatomic,assign) BOOL headerEncrypt;
 
+/**
+ *  当前请求不加密 即使设置了加密
+ */
+@property(nonatomic,assign) BOOL forbiddenEncrypt;
+
+/**
+ *  响应数据不一定是json格式，如果YES，对不是json的数据不报错
+ */
+@property(nonatomic,assign) BOOL forbiddenJSONParseError;
+
 - (void)parsingError:(NSError *)error;
 - (void)parsingResult:(NSString *)resultStr;
 
